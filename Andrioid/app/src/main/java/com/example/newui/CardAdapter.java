@@ -59,7 +59,7 @@ public class CardAdapter extends BaseAdapter {
 //        phone.setText(friendsItem.getPhone());
 
         TextView validity = (TextView) converView.findViewById(R.id.nickname);
-        validity.setText("별칭" + "("+cardItem.getNickname()+")");
+        validity.setText(cardItem.getNickname());
 
         return converView;
     }

@@ -37,7 +37,7 @@ android {
 }
 
 dependencies {
-
+    implementation 'com.android.support:design:26.1.0'
     implementation files('libs/httpclient-4.2.2.jar')
     implementation files('libs/httpcore-4.2.2.jar')
     implementation fileTree(dir: 'libs', include: ['*.jar'])

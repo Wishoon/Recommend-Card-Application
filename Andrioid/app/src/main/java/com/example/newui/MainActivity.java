@@ -11,6 +11,7 @@ import android.location.LocationManager;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
+import android.view.animation.AnimationUtils;
 import android.webkit.JavascriptInterface;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
@@ -28,23 +29,33 @@ import android.view.View;
 import android.view.animation.Animation;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonParser;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.w3c.dom.Text;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+
+    private Context mContext;
+    private FloatingActionButton fab_main, fab_sub1, fab_sub2 , fab_sub3 , fab_sub4 , fab_sub5;
+    private Animation fab_open, fab_close;
+    private boolean isFabOpen = false;
+
 
     String ID;
-    LinearLayout page;
+    String money;
+    LinearLayout page, page2;
     Button button;
 
+    TextView place;
     private SharedPreferences appData;
     boolean isPageOpen = false;
     private ArrayList<CardItem> data1= null;
@@ -71,11 +82,11 @@ public class MainActivity extends AppCompatActivity {
         listView1 = (ListView)findViewById(R.id.cards_listview);
         webView = (WebView)findViewById(R.id.webvw);
         webView.setWebViewClient(new WebViewClient());
-
+        place = (TextView)findViewById(R.id.place);
         appData = getSharedPreferences("appData", MODE_PRIVATE);
         webSettings = webView.getSettings();
         webSettings.setJavaScriptEnabled(true);
-
+        page2 = (LinearLayout)findViewById(R.id.page2);
         gpsTracker = new GpsTracker(MainActivity.this);
         double latitude = gpsTracker.getLatitude(); // 위도
         double longitude = gpsTracker.getLongitude(); //경도
@@ -135,6 +146,7 @@ public class MainActivity extends AppCompatActivity {
                 if (isPageOpen) {
 //                    button.setText("열기");
                     page.setVisibility(android.view.View.INVISIBLE);
+                    page2.setVisibility(android.view.View.INVISIBLE);
 //                    isPageOpen = false;
                 }
 //                else {
@@ -145,7 +157,126 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+
+        mContext = getApplicationContext();
+        fab_open = AnimationUtils.loadAnimation(mContext, R.anim.fab_open);
+        fab_close = AnimationUtils.loadAnimation(mContext, R.anim.fab_close);
+
+
+
+        fab_main = (FloatingActionButton) findViewById(R.id.fab_main);
+        fab_sub1 = (FloatingActionButton) findViewById(R.id.fab_sub1);
+        fab_sub2 = (FloatingActionButton) findViewById(R.id.fab_sub2);
+        fab_sub3 = (FloatingActionButton) findViewById(R.id.fab_sub3);
+        fab_sub4 = (FloatingActionButton) findViewById(R.id.fab_sub4);
+        fab_sub5 = (FloatingActionButton) findViewById(R.id.fab_sub5);
+
+
+
+        fab_main.setOnClickListener(this);
+        fab_sub1.setOnClickListener(this);
+        fab_sub2.setOnClickListener(this);
+        fab_sub3.setOnClickListener(this);
+        fab_sub4.setOnClickListener(this);
+        fab_sub5.setOnClickListener(this);
+
+
+
+
     }
+    @Override
+    public void onBackPressed() {
+        //super.onBackPressed();
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.fab_main:
+                toggleFab();
+                break;
+
+            case R.id.fab_sub1:
+
+                toggleFab();
+                Toast.makeText(getApplicationContext(), "MainPage 클릭", Toast.LENGTH_SHORT).show();
+                Intent intent1 = new Intent(this, MainActivity.class);
+                startActivity(intent1);
+
+                break;
+
+            case R.id.fab_sub2:
+                toggleFab();
+                Toast.makeText(getApplicationContext(), "CardList 메뉴 클릭", Toast.LENGTH_SHORT).show();
+                Intent intent2 = new Intent(this, CardList.class);
+                startActivity(intent2);
+
+                break;
+
+
+            case R.id.fab_sub3:
+                toggleFab();
+                Toast.makeText(getApplicationContext(), "Register Card 메뉴 클릭", Toast.LENGTH_SHORT).show();
+                Intent intent3 = new Intent(this, RegisterCard.class);
+                startActivity(intent3);
+                break;
+
+            case R.id.fab_sub4:
+                toggleFab();
+                save();
+                Toast.makeText(getApplicationContext(), "로그아웃 메뉴 클릭", Toast.LENGTH_SHORT).show();
+                Intent intent4 = new Intent(this, LoginActivity.class);
+                startActivity(intent4);
+
+
+                break;
+
+            case R.id.fab_sub5:
+                toggleFab();
+                Toast.makeText(getApplicationContext(), "popup", Toast.LENGTH_SHORT).show();
+                Intent intent5 = new Intent(this, PopupActivity.class);
+                startActivity(intent5);
+                break;
+        }
+    }
+
+
+    private void toggleFab() {
+
+        if (isFabOpen) {
+
+            fab_main.setImageResource(R.drawable.ic_menu_foreground);
+            fab_sub1.startAnimation(fab_close);
+            fab_sub2.startAnimation(fab_close);
+            fab_sub3.startAnimation(fab_close);
+            fab_sub4.startAnimation(fab_close);
+            fab_sub5.startAnimation(fab_close);
+            fab_sub1.setClickable(false);
+            fab_sub2.setClickable(false);
+            fab_sub3.setClickable(false);
+            fab_sub4.setClickable(false);
+            fab_sub5.setClickable(false);
+            isFabOpen = false;
+
+        } else {
+
+            fab_main.setImageResource(R.drawable.ic_menu_foreground);
+            fab_sub1.startAnimation(fab_open);
+            fab_sub2.startAnimation(fab_open);
+            fab_sub3.startAnimation(fab_open);
+            fab_sub4.startAnimation(fab_open);
+            fab_sub5.startAnimation(fab_open);
+            fab_sub1.setClickable(true);
+            fab_sub2.setClickable(true);
+            fab_sub3.setClickable(true);
+            fab_sub4.setClickable(true);
+            fab_sub5.setClickable(true);
+            isFabOpen = true;
+        }
+    }
+
+
+
 
 
     @Override
@@ -192,30 +323,50 @@ public class MainActivity extends AppCompatActivity {
             mContext = c;
         }
         @JavascriptInterface
+        public void marker(String json){
+            page.setVisibility(android.view.View.INVISIBLE);
+            page2.setVisibility(android.view.View.INVISIBLE);
+
+        }
+        @JavascriptInterface
         public void showToast(String toast) {
 
             finish();
             overridePendingTransition(R.anim.fadein, R.anim.fadeout);
-            startActivity(new Intent(getApplicationContext(), MainActivity.class));
+            Intent intent = new Intent(MainActivity.this, MainActivity.class);
+            startActivity(intent);
+            //overridePendingTransition(0, 0);
+
+            //startActivity(new Intent(getApplicationContext(), MainActivity.class));
 //            overridePendingTransition(R.anim.fadein, R.anim.fadeout);
         }
         @JavascriptInterface
         public String plus(String json) throws JSONException {
 
+
             Log.d("a ", json.toString());
+            if("undefined".equals(json.toString())) {
+                Toast.makeText(MainActivity.this, "해당 매점에 혜택받는 카드가 없습니다.", Toast.LENGTH_SHORT).show();
+                return "";
+            }
             JSONArray jArrObject = new JSONArray(json);
+            JSONObject obj2;
 //            JsonParser parser = new JsonParser();
 //            Object obj = parser.parse(json);
 //            JSONObject result = (JSONObject) obj;
             CardItem vo = null;
             final  ArrayList<CardItem> data = new ArrayList<>();
             int list_cont = jArrObject.length();
+
             for(int i =0; i<list_cont ; i++){
-                JSONObject obj2 = jArrObject.getJSONObject(i);
+                obj2 = jArrObject.getJSONObject(i);
                 Log.d("card_Name",(String)obj2.get("card_Name"));
-                vo = new CardItem(obj2.getInt("card_Number"),(String)obj2.get("card_Name")," "," " ," ", "");
+                String str = obj2.getString("card_Title").split(" ")[0]+" 지점은 " + String.valueOf(obj2.get("card_discount") + "할인 제공 해줍니다.");
+                vo = new CardItem(obj2.getInt("card_Number"),(String)obj2.get("card_Name"),"", ""," ", str);
                 data.add(vo);
         }
+            obj2 = jArrObject.getJSONObject(0);
+            place.setText((String)obj2.get("card_Title"));
 
             new Thread()
             {
@@ -228,8 +379,11 @@ public class MainActivity extends AppCompatActivity {
                                 @Override
                                 public void run() {
                                     final CardAdapter adapter1 = new CardAdapter(MainActivity.this, R.layout.cards_item, data);
+
                                     listView.setAdapter(adapter1);
                                     page.setVisibility(android.view.View.VISIBLE);
+                                    page2.setVisibility(android.view.View.VISIBLE);
+                                    button.bringToFront();
                                     isPageOpen = true;
                                 }
                             });
@@ -434,5 +588,16 @@ public class MainActivity extends AppCompatActivity {
         // SharedPreferences 객체.get타입( 저장된 이름, 기본값 )
         // 저장된 이름이 존재하지 않을 시 기본값
         ID= appData.getString("id", "");
+    }
+    private void save() {
+        // SharedPreferences 객체만으론 저장 불가능 Editor 사용
+        SharedPreferences.Editor editor = appData.edit();
+
+        // 에디터객체.put타입( 저장시킬 이름, 저장시킬 값 )
+        // 저장시킬 이름이 이미 존재하면 덮어씌움
+        editor.putString("id", "");
+
+        // apply, commit 을 안하면 변경된 내용이 저장되지 않음
+        editor.apply();
     }
 }

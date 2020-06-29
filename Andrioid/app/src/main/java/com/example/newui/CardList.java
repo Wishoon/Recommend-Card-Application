@@ -1,6 +1,7 @@
 package com.example.newui;
 
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
@@ -11,6 +12,8 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
@@ -19,6 +22,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.Toast;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
@@ -37,8 +41,14 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CardList extends AppCompatActivity
+public class CardList extends AppCompatActivity implements View.OnClickListener
 {
+    private Context mContext;
+    private FloatingActionButton fab_main, fab_sub1, fab_sub2 , fab_sub3 , fab_sub4 ,fab_sub5  ;
+    private Animation fab_open, fab_close;
+    private boolean isFabOpen = false;
+
+
     private ArrayList<CardItem> data= new ArrayList<CardItem>();
     JSONObject requestData;
     ListView list1;
@@ -67,7 +77,123 @@ public class CardList extends AppCompatActivity
             e.printStackTrace();
         }
 
+
+        mContext = getApplicationContext();
+        fab_open = AnimationUtils.loadAnimation(mContext, R.anim.fab_open);
+        fab_close = AnimationUtils.loadAnimation(mContext, R.anim.fab_close);
+
+
+
+        fab_main = (FloatingActionButton) findViewById(R.id.fab_main);
+        fab_sub1 = (FloatingActionButton) findViewById(R.id.fab_sub1);
+        fab_sub2 = (FloatingActionButton) findViewById(R.id.fab_sub2);
+        fab_sub3 = (FloatingActionButton) findViewById(R.id.fab_sub3);
+        fab_sub4 = (FloatingActionButton) findViewById(R.id.fab_sub4);
+        fab_sub5 = (FloatingActionButton) findViewById(R.id.fab_sub5);
+
+
+
+        fab_main.setOnClickListener(this);
+        fab_sub1.setOnClickListener(this);
+        fab_sub2.setOnClickListener(this);
+        fab_sub3.setOnClickListener(this);
+        fab_sub4.setOnClickListener(this);
+        fab_sub5.setOnClickListener(this);
+
+
+
+
     }
+
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.fab_main:
+                toggleFab();
+                break;
+            case R.id.fab_sub1:
+
+                toggleFab();
+                Toast.makeText(getApplicationContext(), "MainPage 클릭", Toast.LENGTH_SHORT).show();
+                Intent intent1 = new Intent(this, MainActivity.class);
+                startActivity(intent1);
+                finish();
+                break;
+
+            case R.id.fab_sub2:
+                toggleFab();
+                Toast.makeText(getApplicationContext(), "CardList 메뉴 클릭", Toast.LENGTH_SHORT).show();
+                Intent intent2 = new Intent(this, CardList.class);
+                startActivity(intent2);
+                finish();
+                break;
+
+
+            case R.id.fab_sub3:
+                toggleFab();
+                Toast.makeText(getApplicationContext(), "Register Card 메뉴 클릭", Toast.LENGTH_SHORT).show();
+                Intent intent3 = new Intent(this, RegisterCard.class);
+                startActivity(intent3);
+                finish();
+
+                Toast.makeText(this, "Map Open-!", Toast.LENGTH_SHORT).show();
+                break;
+
+            case R.id.fab_sub4:
+                toggleFab();
+                save();
+                Toast.makeText(getApplicationContext(), "로그아웃 메뉴 클릭", Toast.LENGTH_SHORT).show();
+                Intent intent4 = new Intent(this, LoginActivity.class);
+                startActivity(intent4);
+
+            case R.id.fab_sub5:
+                toggleFab();
+                Toast.makeText(getApplicationContext(), "popup", Toast.LENGTH_SHORT).show();
+                Intent intent5 = new Intent(this, PopupActivity.class);
+                startActivity(intent5);
+                break;
+        }
+    }
+
+
+    private void toggleFab() {
+
+        if (isFabOpen) {
+
+            fab_main.setImageResource(R.drawable.ic_menu_foreground);
+            fab_sub1.startAnimation(fab_close);
+            fab_sub2.startAnimation(fab_close);
+            fab_sub3.startAnimation(fab_close);
+            fab_sub4.startAnimation(fab_close);
+            fab_sub5.startAnimation(fab_close);
+            fab_sub1.setClickable(false);
+            fab_sub2.setClickable(false);
+            fab_sub3.setClickable(false);
+            fab_sub4.setClickable(false);
+            fab_sub5.setClickable(false);
+            isFabOpen = false;
+
+        } else {
+
+            fab_main.setImageResource(R.drawable.ic_menu_foreground);
+            fab_sub1.startAnimation(fab_open);
+            fab_sub2.startAnimation(fab_open);
+            fab_sub3.startAnimation(fab_open);
+            fab_sub4.startAnimation(fab_open);
+            fab_sub5.startAnimation(fab_open);
+            fab_sub1.setClickable(true);
+            fab_sub2.setClickable(true);
+            fab_sub3.setClickable(true);
+            fab_sub4.setClickable(true);
+            fab_sub5.setClickable(true);
+            isFabOpen = true;
+        }
+    }
+
+
+
+
     class postTask extends AsyncTask<String, String, String> {
 
 
@@ -221,5 +347,15 @@ public class CardList extends AppCompatActivity
         return super.onOptionsItemSelected(item);
     }
 
+    private void save() {
+        // SharedPreferences 객체만으론 저장 불가능 Editor 사용
+        SharedPreferences.Editor editor = appData.edit();
 
+        // 에디터객체.put타입( 저장시킬 이름, 저장시킬 값 )
+        // 저장시킬 이름이 이미 존재하면 덮어씌움
+        editor.putString("id", "");
+
+        // apply, commit 을 안하면 변경된 내용이 저장되지 않음
+        editor.apply();
+    }
 }

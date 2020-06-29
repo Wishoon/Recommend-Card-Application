@@ -44,7 +44,15 @@ public class LoginActivity extends AppCompatActivity{
         password = (EditText) findViewById(R.id.password);
         login = (Button) findViewById(R.id.login);
         sign = (Button) findViewById(R.id.sign);
+        load();
+        if("".equals(ID)){
 
+        }else {
+            Toast.makeText(this, ID+" 님 안녕하세요", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+            startActivityForResult(intent, 1000);
+        }
 
         login.setOnClickListener(new View.OnClickListener() {
             @Override

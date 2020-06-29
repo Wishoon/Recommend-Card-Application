@@ -12,28 +12,127 @@
             android:id="@+id/event"
             android:layout_width="match_parent" android:layout_height="wrap_content"
                     tools:ignore="WebViewLayout">
-        <TextView
-                android:id="@+id/textView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Hello World!"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
 
         <WebView
                 android:id="@+id/webvw"
                 android:layout_width="406dp"
-                android:layout_height="727dp"
+                android:layout_height="800dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:ignore="MissingConstraints" />
+                tools:ignore="MissingConstraints" android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true" android:layout_marginRight="8dp" android:layout_marginEnd="8dp">
+            <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_y="0dp" android:layout_x="0dp">
+
+
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                        android:id="@+id/fab_sub1"
+                        android:src="@drawable/ic_home_foreground"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_above="@+id/fab_sub2"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginBottom="15dp"
+                        android:layout_marginRight="20dp"
+                        android:visibility="invisible"
+                        app:borderWidth="0dp"
+                        app:fabSize="normal"/>
+
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                        android:id="@+id/fab_sub2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_above="@+id/fab_sub3"
+                        android:layout_alignParentRight="true"
+                        android:src="@drawable/ic_list_foreground"
+                        android:layout_marginBottom="15dp"
+                        android:layout_marginRight="20dp"
+                        android:visibility="invisible"
+                        app:borderWidth="0dp"
+                        app:fabSize="normal"/>
+
+
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                        android:id="@+id/fab_sub3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_above="@+id/fab_sub4"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginBottom="15dp"
+                        android:layout_marginRight="20dp"
+                        android:src="@drawable/ic_plus_foreground"
+                        android:visibility="invisible"
+                        app:borderWidth="0dp"
+                        app:fabSize="normal"/>
+
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:id="@+id/fab_sub4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_above="@+id/fab_sub5"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginBottom="15dp"
+                    android:layout_marginRight="20dp"
+                    android:src="@drawable/ic_exit_foreground"
+                    android:visibility="invisible"
+                    app:borderWidth="0dp"
+                    app:fabSize="normal"/>
+
+
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                        android:id="@+id/fab_sub5"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_above="@+id/fab_main"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginBottom="15dp"
+                        android:layout_marginRight="20dp"
+                        android:visibility="invisible"
+                        android:src="@drawable/ic_money_foreground"
+                        android:backgroundTint="#009688"
+                        app:borderWidth="0dp"
+                        app:fabSize="normal"/>
+
+
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                        android:id="@+id/fab_main"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignParentBottom="true"
+                        android:layout_marginRight="20dp"
+                        android:layout_marginBottom="20dp"
+                        android:backgroundTint="#009688"
+                        android:src="@drawable/ic_menu_foreground"
+                        app:backgroundTint="#ffffff"
+                        app:borderWidth="0dp"
+                        app:fabSize="normal"/>
+
+
+            </RelativeLayout>
+        </WebView>
     </RelativeLayout>
 
+    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                  android:visibility="invisible"
+                  android:orientation="vertical"
+                  android:layout_marginTop="416dp"
+                  android:id="@+id/page2"
+    >
+        <Button
+                android:id="@+id/button"
+                android:layout_width="50dp"
+                android:layout_height="42dp"
+                android:layout_gravity="right"
+                android:background="@drawable/ic_cancel_foreground"
+        />
+
+    </LinearLayout>
     <LinearLayout
         android:id="@+id/page"
         android:layout_width="411dp"
@@ -42,13 +141,9 @@
         android:layout_gravity="right"
         android:layout_marginTop="460dp"
         android:visibility="invisible"
+        android:background="#ffffff"
         >
-            <Button
-                    android:id="@+id/button"
-                    android:layout_width="50dp"
-                    android:layout_height="42dp"
-                    android:layout_gravity="right" android:background="@drawable/ic_cancel_foreground"
-            />
+
         <TextView
                 android:layout_width="fill_parent"
                 android:layout_height="1dp"
@@ -60,8 +155,9 @@
                 android:layout_height="wrap_content"
                 android:background="#ffffff"
                 android:text="장소"
+                android:layout_marginLeft="10dp"
                 android:id="@+id/place"
-        >
+                android:textSize="18dp" android:textStyle="bold" android:fontFamily="monospace">
 
         </TextView>
         <TextView
