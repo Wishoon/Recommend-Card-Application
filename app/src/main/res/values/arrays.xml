@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="card_name">
+        <item>카드명을 선택해주세요</item>
+        <item>IBK 쇼핑앤조이 카드</item>
+        <item>굿데이 올림 카드</item>
+        <item>롯데카드 LIKIT FUN 카드</item>
+        <item>부산 지역화폐 동백전 카드 </item>
+        <item>신한 S20 카드</item>
+        <item>신한카드 B.Big(삑)</item>
+        <item>신한카드 YOLOⓘ</item>
+        <item>신한카드 YOLOⓘ (미니언즈)</item>
+        <item>썸타는 우리 체크카드</item>
+        <item>우리카드 카드의 정석 위비온 플러스</item>
+        <item>카카오뱅크 체크카드</item>
+        <item>하나 마패 체크카드</item>
+        <item>하나카드 카카오페이 카드</item>
+    </string-array>
+
+
+
+</resources>
