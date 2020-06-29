@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dongseo.card.model.card.CardMapper">
+	<insert id="insertCard">
+		Insert card.user_card(CARD_CARD_NAME, CARD_NUMBER, CARD_NICKNAME, CARD_CVC, CARD_VAlidity, USER_USER_ID) 
+		values
+		(#{CARD_CARD_NAME},#{CARD_NUMBER},#{CARD_NICKNAME},#{CARD_CVC},#{CARD_VALIDITY},#{USER_USER_ID})
+	</insert>
+	<select id="selectUserCard" parameterType="String" resultType="com.dongseo.card.model.card.CardVO">
+		SELECT * FROM card.card 
+		inner join card.user_card on card.card.CARD_NAME = card.user_card.CARD_CARD_NAME
+		where USER_USER_ID = #{id}
+	</select>
+	<select id ="selectCard" parameterType = "String" resultType="com.dongseo.card.model.card.CardVO">
+		SELECT * FROM CARD.CARD
+	</select>
+	
+	<select id = "selectStoreCard" parameterType="String" resultType="com.dongseo.card.model.card.CardVO">
+		select * from card.card
+		join card.store_card on card.CARD_NAME = store_card.CARD_CARD_NAME
+		join card.user_card on card.CARD_NAME = card.user_card.CARD_CARD_NAME
+		join card.store on card.store_card.STORE_STORE_NAME = card.store.STORE_NAME
+		where store_card.STORE_STORE_NAME = #{param1}
+		and user_card.USER_USER_ID = #{param2}
+	</select>
+	<select id="selectStore" resultType="com.dongseo.card.model.card.CardVO">
+		select * from card.store
+	</select>
+</mapper>
