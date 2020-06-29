@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+             xmlns:tools="http://schemas.android.com/tools"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+             xmlns:app="http://schemas.android.com/apk/res-auto"
+             tools:context=".MainActivity">
+
+
+    <RelativeLayout
+            android:id="@+id/event"
+            android:layout_width="match_parent" android:layout_height="wrap_content"
+                    tools:ignore="WebViewLayout">
+        <TextView
+                android:id="@+id/textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Hello World!"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        <WebView
+                android:id="@+id/webvw"
+                android:layout_width="406dp"
+                android:layout_height="727dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="MissingConstraints" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/page"
+        android:layout_width="411dp"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_gravity="right"
+        android:layout_marginTop="460dp"
+        android:visibility="invisible"
+        >
+            <Button
+                    android:id="@+id/button"
+                    android:layout_width="50dp"
+                    android:layout_height="42dp"
+                    android:layout_gravity="right" android:background="@drawable/ic_cancel_foreground"
+            />
+        <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:background="#000000"
+
+        ></TextView>
+        <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#ffffff"
+                android:text="장소"
+                android:id="@+id/place"
+        >
+
+        </TextView>
+        <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:background="#000000"
+
+        ></TextView>
+        <ListView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/listview"
+                android:layout_weight="1"
+                android:choiceMode="singleChoice"
+                android:dividerHeight="1.5dp"
+                android:divider="@color/design_default_color_on_secondary"
+                android:background="#00FAF8F8"/>
+    </LinearLayout>
+
+
+</FrameLayout>
